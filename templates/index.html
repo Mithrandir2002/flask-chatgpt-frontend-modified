@@ -40,61 +40,151 @@ Author: Watcharapon Weeraborirak
 
 <body>
     <div id="app">
-        <div class="container">
-            <div class="row">
-                <div>
-                    <div class="card">
-                        <div class="card-header">
-                            <a href=""><h2 style="color: hsl(252, 30%, 10%)">Group 27 chatbot</h2></a>
-
-                            <img class="profile-photo" src="{{ url_for('static', filename='profile-1.jpg') }}">
-                        </div>
-                        <div class="card-body">
-                            <div class="chat-history">
-
-                                <a class="chat" href="">
-                                    <h3>Hello and goodbye</h3>
-                                </a>
-                                <a class="chat" href="">
-                                    <h3>Lorem Ipsum</h3>
-                                </a>
-                                <a class="chat" href="">
-                                    <h3>Natural Language Processing</h3>
-                                </a>
-                            </div>
-                            <div class="chatbox">
-                                <div class="chatbox__messages">
-                                    <div class="chatbot-overview">
-                                        <div class="logo-and-chat-name">
-                                            <img class="profile-photo" src="{{ url_for('static', filename='profile-1.jpg') }}">
-                                            <div class="chatbot-name">
-                                                <h3>Assistant</h3>
-                                                <p>by Group 27</p>
-                                            </div>
-                                        </div>
-                                        <p>This is a simple web application that uses the GPT-3 language model to generate responses to user input. The application is built using Python Flask and OpenAI's GPT-3 API.</p>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;" class="message" v-for="(message, k) in messages" :key="k">
-                                        <p style="background: #f59898; color: white; border-radius: 2rem; padding: 1rem; width: max-content; max-width: 100%; box-sizing: border-box; margin-bottom: 2rem; align-self: flex-end;">[[message.question]]</p>
-                                        <p style="background: hsl(252, 30%, 95%); color: hsl(252, 30%, 10%); border-radius: 2rem; padding: 1rem; width: max-content; max-width: 100%; box-sizing: border-box; margin-bottom: 2rem" class="answer">[[ message.answer ]]</p>
-                                    </div>
-{#                                    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;" class="message">#}
-{#                                        <p style="background: #f59898; color: white; border-radius: 2rem; padding: 1rem; width: max-content; max-width: 100%; box-sizing: border-box; margin-bottom: 2rem; align-self: flex-end;">Hello</p>#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div>#}
+{#                    <div class="card">#}
+{#                        <div class="card-header">#}
+{#                            <a href=""><h2 style="color: hsl(252, 30%, 10%)">Group 27 NLP project</h2></a>#}
 {##}
-{#                                        <p style="background: hsl(252, 30%, 95%); color: hsl(252, 30%, 10%); border-radius: 2rem; padding: 1rem; width: max-content; max-width: 100%; box-sizing: border-box; margin-bottom: 2rem">Hi, how can i assist you today?</p>#}
+{#                            <img class="profile-photo" src="{{ url_for('static', filename='profile-1.jpg') }}">#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <div class="sidebar">#}
+{#                                    <div class="menu-items">#}
+{#                                        <a class="menu-item" href="">#}
+{#                                            <span><i class="uil uil-edit"></i></span><h3>New chat</h3>#}
+{#                                        </a>#}
+{#                                        <div class="search-bar">#}
+{#                                            <i class="uil uil-search"></i>#}
+{#                                            <input type="search" placeholder="Search messages">#}
+{#                                        </div>#}
+{#                                        <a class="menu-item" href="">#}
+{#                                            <span><i class="uil uil-bookmark"></i></span><h3>Bookmark</h3>#}
+{#                                        </a>#}
 {#                                    </div>#}
-                                    <br>
-                                    <div class="spinner-border text-primary" role="status" v-if="isLoading">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="chatbox__input">
-                                    <input type="text" placeholder="Type a message..." v-model="message" @keyup.enter="sendMessage">
-                                </div>
-                            </div>
+{##}
+{#                                    <div class="chat-history">#}
+{#                                        <p class="date">Yesterday</p>#}
+{#                                        <a class="chat" href="">#}
+{#                                        <span><i class="uil uil-comment-alt-message"></i></span><h3>How to train your dragon</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Lorem Ipsum</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Natural Language Processing</h3>#}
+{#                                        </a>#}
+{#                                    </div>#}
+{#                                    <div class="chat-history">#}
+{#                                        <p class="date">Previous 7 days</p>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Hello and goodbye</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Lorem Ipsum</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Natural Language Processing</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Hello and goodbye</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Lorem Ipsum</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Natural Language Processing</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Hello and goodbye</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Lorem Ipsum</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Natural Language Processing</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Hello and goodbye</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Lorem Ipsum</h3>#}
+{#                                        </a>#}
+{#                                        <a class="chat" href="">#}
+{#                                            <span><i class="uil uil-comment-alt-message"></i></span><h3>Natural Language Processing</h3>#}
+{#                                        </a>#}
+{#                                    </div>#}
+{#                            </div>#}
+{#                            <div class="chatbox">#}
+{#                                <div class="chatbox__messages">#}
+{#                                    <div class="chatbot-overview">#}
+{#                                        <div class="logo-and-chat-name">#}
+{#                                            <img class="profile-photo" src="{{ url_for('static', filename='profile-1.jpg') }}">#}
+{#                                            <div class="chatbot-name">#}
+{#                                                <h3>Assistant</h3>#}
+{#                                                <p>by Group 27</p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <p>This is a simple web application that uses the GPT-3 language model to generate responses to user input. The application is built using Python Flask and OpenAI's GPT-3 API.</p>#}
+{#                                    </div>#}
+{#                                    <div class="spinner-border text-primary" role="status" v-if="isLoading">#}
+{#                                        <span class="sr-only">Loading...</span>#}
+{#                                    </div>#}
+{#                                    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;" class="message" v-for="(message, k) in messages" :key="k">#}
+{#                                        <p style="background: #f59898; color: white; border-radius: 2rem; padding: 1rem; width: max-content; max-width: 100%; box-sizing: border-box; margin-bottom: 2rem; align-self: flex-end;">[[message.question]]</p>#}
+{#                                        <p style="background: hsl(252, 30%, 95%); color: hsl(252, 30%, 10%); border-radius: 2rem; padding: 1rem; width: max-content; max-width: 100%; box-sizing: border-box; margin-bottom: 2rem" class="answer">[[ message.answer ]]</p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <br>#}
+{#                                <div class="input-fixed">#}
+{#                                    <div class="chatbox__input">#}
+{#                                    <input type="text" placeholder="Type a message..." v-model="message" @keyup.enter="sendMessage">#}
+{#                                </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+        <div class="main-div">
+            <div class="menu-toggle" :class="{ 'active': isActive }" @click="toggleMenu">
+                <i class="uil uil-external-link-alt"></i>
+            </div>
+            <div class="container">
+                <div class="top-part">
+                    <div class="agent-details">
+                        <img src="../static/profile-1.jpg">
+                        <div class="agent-text">
+                            <h3>Assistant</h3>
+                            <p>by Group 27<span>Online</span></p>
                         </div>
                     </div>
+                    <i class="uil uil-multiply"></i>
+                </div>
+                <div class="chart-section">
+                    <div class="conversation" v-for="(message, k) in messages" :key="k">
+                       <div class="left-part">
+                            <p>[[message.question]]</p>
+                       </div>
+                        <div class="right-part">
+                            <p>[[ message.answer ]]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-section">
+                    <i class="uil uil-microphone"></i>
+                    <textarea name="" id="" cols="" rows="" placeholder="Ask something" v-model="message"></textarea>
+                    <i
+                        v-if="!isLoading"
+                        class="uil uil-message"
+                        @click="sendMessage"
+                    ></i>
+                    <i
+                        v-else
+                        class="uil uil-spinner-alt uil-spin"
+                    ></i>
                 </div>
             </div>
         </div>
@@ -110,12 +200,16 @@ Author: Watcharapon Weeraborirak
             message: '',
             messages: [],
             isLoading: false,
+            isActive: false
         },
         delimiters : ['[[', ']]'],
         created() {
             this.getData();
         },
         methods: {
+            toggleMenu() {
+                this.isActive = !this.isActive;
+            },
             async getData(){
                 const path = 'http://127.0.0.1:5000/get-data';
                 await axios.get(path)

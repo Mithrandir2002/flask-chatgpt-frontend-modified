@@ -35,14 +35,16 @@ Author: Watcharapon Weeraborirak
 
 # app.py
 from flask import Flask, request, jsonify, render_template
-import openai
+from openai import OpenAI
 import json
 import os
 
 app = Flask(__name__)
 
 # Set Environment API Key
-openai.api_key = os.environ.get('OPENAI_API_KEY')
+client = OpenAI(
+  api_key=""
+)
 
 if not os.path.exists('history.json'):
     with open('history.json', 'w') as f:
@@ -58,11 +60,15 @@ with open('history.json', 'r') as f:
 with open('data.json', 'r') as f:
     data = json.load(f)
 
-def generate_response(prompt, model_engine="gpt-3.5-turbo"):
-    response = openai.ChatCompletion.create(
+def generate_response(prompt, model_engine="gpt-4o-mini"):
+    print("LOLON")
+    print(prompt)
+    response = client.chat.completions.create(
         model=model_engine,
+        store=True,
         messages=prompt
     )
+    print(response.choices[0].message.content)
     return response
 
 @app.route('/')
@@ -83,7 +89,7 @@ def chatbot():
     response = generate_response(data)
 
     # get answer from model
-    answer = response.choices[-1]['message']['content']
+    answer = response.choices[0].message.content
 
     # Save answer from model
     history.append({'question': message, 'answer': answer})
@@ -92,7 +98,7 @@ def chatbot():
     # Dump data to json file
     with open('history.json', 'w') as f:
         json.dump(history, f)
-    
+
     # Dump history to json file
     with open('data.json', 'w') as f:
         json.dump(data, f)
