@@ -43,7 +43,7 @@ app = Flask(__name__)
 
 # Set Environment API Key
 client = OpenAI(
-  api_key=""
+  api_key="your_key_here"
 )
 
 if not os.path.exists('history.json'):
